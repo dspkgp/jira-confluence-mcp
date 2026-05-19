@@ -1,0 +1,15 @@
+langchain-mcp-adapters
+langgraph
+langchain-openai
+langchain
+langchain-core
+python-dotenv
+mcp
+streamlit
+streamlit-chat
+fastapi
+uvicorn
+pydantic
+jira
+atlassian-python-api
+httpx
