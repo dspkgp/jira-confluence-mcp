@@ -27,6 +27,31 @@ available_tools = {}
 
 
 @mcp.tool()
+def get_all_projects() -> dict[str, Any]:
+    """
+    Get all JIRA projects accessible to the user.
+    Returns project keys, names, and IDs.
+    """
+    try:
+        projects = jira_client.projects()
+        
+        result = []
+        for proj in projects:
+            result.append({
+                "key": proj.key,
+                "name": proj.name,
+                "id": proj.id,
+            })
+        
+        return {
+            "total_projects": len(result),
+            "projects": result
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@mcp.tool()
 def get_issue(issue_key: str) -> dict[str, Any]:
     """
     Fetch Jira issue details.
@@ -251,6 +276,7 @@ def transition_issue(issue_key: str, transition_name: str) -> dict[str, Any]:
 if __name__ == "__main__":
     print("Starting JIRA MCP Server...")
     print("Available tools:")
+    print("  - get_all_projects: Get all JIRA projects accessible to user")
     print("  - get_issue: Fetch JIRA issue details")
     print("  - search_issues: Search JIRA issues using JQL")
     print("  - create_issue: Create a Jira issue")
